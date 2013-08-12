@@ -180,10 +180,10 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"I was selected");
-    if ( self.editingRowIndex > 0 ){
-        ToDoObj *todoObj = self.todoList[indexPath.row];
-        todoObj.isEditMode = NO;
+    for ( ToDoObj *todoObj in self.todoList ){
+        if (todoObj.isEditMode){
+            todoObj.isEditMode = NO;
+        }
     }
     
     self.editingRowIndex = indexPath.row;
@@ -192,8 +192,6 @@
     ToDoCell *cell = (ToDoCell*)[self.tableView cellForRowAtIndexPath:indexPath];
     [cell switchToEditMode];
     [cell.titleText becomeFirstResponder];
-    cell = nil;
-    
 }
 
 #pragma MArk - TextField delegate methods
